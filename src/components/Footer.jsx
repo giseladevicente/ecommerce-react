@@ -45,7 +45,7 @@ const Footer = () => {
           {/* Columna 3: Información */}
           <Col xs={8} lg={4} className=" py-0 mt-1 text-center text-md-end">
             <h5 className="text-center d-none d-md-block">Información</h5>
-            <p className="text-center">© 2025 eCommerce <small className="text-secondary">Versión 1.0.0</small> <br /> 
+            <p className="text-center">© 2025 eCommerce <small className="text-secondary">Versión 1.12.0.1</small> <br /> 
             Todos los derechos reservados </p>
             <p className="text-center"> <a href="#"> Términos y condiciones </a> | <a href="#"> Privacidad </a></p>
           </Col>

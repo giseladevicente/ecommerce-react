@@ -1,6 +1,7 @@
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Navigation from './components/Nav';
+import Home from './pages/Home';
 
 
 
@@ -10,6 +11,7 @@ function App() {
     <>
     <Navigation />
     <Header/>
+    <Home/>
     <Footer/>
     </>
   )
