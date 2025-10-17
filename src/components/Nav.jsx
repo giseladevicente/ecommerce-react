@@ -17,11 +17,12 @@ const Navigation = () => {
           <Nav className="me-auto" navbarScroll>
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/nosotros">Nosotros</Nav.Link> 
-            <Nav.Link as={Link} to="/ofertas">Ofertas</Nav.Link>
             <NavDropdown title="Categorías" id="navbarScrollingDropdown">
-              <NavDropdown.Item as={Link} to="/mujeres">Mujeres</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/hombres">Hombres</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/ninos">Niños</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/productos">Todos los productos</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/categoria/women's clothing">Mujer</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/categoria/men's clothing">Hombre</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/categoria/electronics">Electrónica</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/categoria/jewelery">Joyería</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
