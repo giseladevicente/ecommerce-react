@@ -8,21 +8,17 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import "../styles/Nav.css";
+import { useLogout } from "../hooks/useLogout";
+import { useAuth } from "../hooks/useAuth";
 
 const Navigation = () => {
-  const navigate = useNavigate();
-  const isAuth = localStorage.getItem("auth") === "true";
-  const usuario = localStorage.getItem("usuario");
-
-  const cerrarSesion = () => {
-    localStorage.removeItem("auth");
-    navigate("/login");
-  };
+  const { isAuth, usuario } = useAuth();
+  const cerrarSesion = useLogout();
 
   return (
     <Navbar expand="lg" bg="dark" variant="dark" className="shadow-sm">
