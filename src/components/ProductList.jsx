@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Row, Col, Spinner } from "react-bootstrap";
 import Swal from "sweetalert2";
 import ProductCard from "./ProductCard";
+import { CartContext } from "../context/CartContext";
 
 const ProductList = ({ category = null, limit = null }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { agregarAlCarrito } = useContext(CartContext);
 
   useEffect(() => {
     let url = "https://fakestoreapi.com/products";
@@ -22,7 +24,6 @@ const ProductList = ({ category = null, limit = null }) => {
       })
       .then((data) => {
         setProducts(data);
-        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -36,15 +37,6 @@ const ProductList = ({ category = null, limit = null }) => {
       })
       .finally(() => setLoading(false));
   }, [category]);
-
-  const handleAgregarAlCarrito = (product) => {
-    Swal.fire({
-      title: "¡Producto agregado!",
-      text: `Producto "${product.title}" agregado al carrito.`,
-      icon: "success",
-      confirmButtonColor: "#0d6efd",
-    });
-  };
 
   if (loading)
     return (
@@ -68,7 +60,15 @@ const ProductList = ({ category = null, limit = null }) => {
             <ProductCard
               product={{ ...product, discountedPrice }}
               discount={discount}
-              agregarAlCarrito={handleAgregarAlCarrito}
+              agregarAlCarrito={() => {
+                agregarAlCarrito({ ...product, discount, discountedPrice });
+                Swal.fire({
+                  title: "¡Producto agregado!",
+                  text: `Producto "${product.title}" agregado al carrito.`,
+                  icon: "success",
+                  confirmButtonColor: "#0d6efd",
+                });
+              }}
             />
           </Col>
         );
