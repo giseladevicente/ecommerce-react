@@ -1,4 +1,5 @@
 import { Card, Button, Badge } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product, discount = 0, agregarAlCarrito }) => {
   return (
@@ -13,7 +14,22 @@ const ProductCard = ({ product, discount = 0, agregarAlCarrito }) => {
 
       <Card.Body className="d-flex flex-column">
         <Card.Title className="fs-6">{product.title}</Card.Title>
-        <Card.Text>{product.description.slice(0, 100)}...</Card.Text>
+        <Card.Text>{product.description.slice(0, 60)}...</Card.Text>
+
+        <Link
+          to={`/producto/${product.id}`}
+          state={{
+            producto: {
+              ...product,
+              discount,
+              discountedPrice: product.discountedPrice || product.price,
+            },
+          }}
+          className="text-decoration-none mb-2"
+        >
+          Ver más
+        </Link>
+
         {discount > 0 ? (
           <div>
             <Card.Text className="text-muted mb-1">

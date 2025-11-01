@@ -14,6 +14,7 @@ import Perfil from "./pages/Perfil";
 import Administracion from "./pages/Administracion";
 import { Spinner as LoadingSpinner } from "react-bootstrap";
 import { CartProvider } from "./context/CartProvider";
+import ProductoDetalle from "./components/ProductoDetalle";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -42,6 +43,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/productos" element={<Productos />} />
+          <Route path="/producto/:id" element={<ProductoDetalle />} />
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/categoria/:categoria" element={<Categorias />} />
           <Route path="/login" element={<Login />} />
