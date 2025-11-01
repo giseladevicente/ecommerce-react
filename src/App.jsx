@@ -13,6 +13,7 @@ import RutaProtegida from "./components/RutaProtegida";
 import Perfil from "./pages/Perfil";
 import Administracion from "./pages/Administracion";
 import { Spinner as LoadingSpinner } from "react-bootstrap";
+import { CartProvider } from "./context/CartProvider";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -35,40 +36,42 @@ function App() {
 
   return (
     <>
-      <Navigation />
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/productos" element={<Productos />} />
-        <Route path="/nosotros" element={<Nosotros />} />
-        <Route path="/categoria/:categoria" element={<Categorias />} />
-        <Route path="/login" element={<Login />} />
-        <Route
-          path="/perfil/:usuario"
-          element={
-            <RutaProtegida>
-              <Perfil />
-            </RutaProtegida>
-          }
-        />
-        <Route
-          path="/admin"
-          element={
-            <RutaProtegida>
-              <Administracion />
-            </RutaProtegida>
-          }
-        />
-        <Route
-          path="/carrito"
-          element={
-            <RutaProtegida>
-              <Carrito />
-            </RutaProtegida>
-          }
-        />
-      </Routes>
-      <Footer />
+      <CartProvider>
+        <Navigation />
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/productos" element={<Productos />} />
+          <Route path="/nosotros" element={<Nosotros />} />
+          <Route path="/categoria/:categoria" element={<Categorias />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/perfil/:usuario"
+            element={
+              <RutaProtegida>
+                <Perfil />
+              </RutaProtegida>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <RutaProtegida>
+                <Administracion />
+              </RutaProtegida>
+            }
+          />
+          <Route
+            path="/carrito"
+            element={
+              <RutaProtegida>
+                <Carrito />
+              </RutaProtegida>
+            }
+          />
+        </Routes>
+        <Footer />
+      </CartProvider>
     </>
   );
 }
