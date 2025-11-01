@@ -12,7 +12,7 @@ const Header = () => {
           size="2x"
           className="me-2 fs-3 text-light"
         />
-        <Link to="/" className=" text-decoration-none text-white">
+        <Link to="/" className=" text-decoration-none text-white" aria-label="Ir al inicio">
           <h1 className="fs-3 mb-0">eCommerce</h1>
         </Link>
       </Container>

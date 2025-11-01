@@ -40,6 +40,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white"
+                aria-label="Facebook"
               >
                 <FontAwesomeIcon icon={faFacebookF} />
               </a>
@@ -48,10 +49,17 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white"
+                aria-label="Instagram"
               >
                 <FontAwesomeIcon icon={faInstagram} />
               </a>
-              <a href="#" className="text-white">
+              <a
+                href="https://x.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white"
+                aria-label="X"
+              >
                 <FontAwesomeIcon icon={faXTwitter} />
               </a>
             </div>

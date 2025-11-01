@@ -1,14 +1,19 @@
-// falta click al carrito y que diga que no hay productos cargados o bienvenido a carrito...
-
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Card, Form, Button, Spinner } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Form,
+  Button,
+  Spinner,
+} from "react-bootstrap";
 import Swal from "sweetalert2";
 
 const Nosotros = () => {
   const [equipo, setEquipo] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [mensaje, setMensaje] = useState("");
@@ -29,6 +34,11 @@ const Nosotros = () => {
       })
       .catch((error) => {
         console.error("Error al obtener los datos del equipo:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "No se pudieron cargar los miembros del equipo.",
+        });
         setLoading(false);
       });
   }, []);

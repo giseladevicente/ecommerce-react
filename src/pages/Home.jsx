@@ -13,7 +13,7 @@ function Home() {
             ¡Aprovechá un 30% OFF en productos seleccionados!
           </p>
         </div>
-        <ProductList limit={8} />
+        < ProductList limit={8} />
       </Container>
     </>
   );
