@@ -1,6 +1,9 @@
-export const useAuth = () => {
-  const isAuth = localStorage.getItem("auth") === "true";
-  const usuario = localStorage.getItem("usuario");
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
-  return { isAuth, usuario };
+export const useAuth = () => {
+  const { user, token, login, logout, register } = useContext(AuthContext);
+  const isAuth = !!token;
+
+  return { isAuth, user, token, login, logout, register };
 };
