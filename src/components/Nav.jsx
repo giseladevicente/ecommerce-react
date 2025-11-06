@@ -17,7 +17,7 @@ import { useLogout } from "../hooks/useLogout";
 import { useAuth } from "../hooks/useAuth";
 
 const Navigation = () => {
-  const { isAuth, usuario } = useAuth();
+  const { isAuth, user } = useAuth();
   const cerrarSesion = useLogout();
 
   return (
@@ -53,9 +53,9 @@ const Navigation = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
 
-                {isAuth && usuario && (
+                {isAuth && user && (
                   <>
-                    <Nav.Link as={Link} to={`/perfil/${usuario}`}>
+                    <Nav.Link as={Link} to={`/perfil/${user}`}>
                       Perfil
                     </Nav.Link>
                     <Nav.Link as={Link} to="/admin">
