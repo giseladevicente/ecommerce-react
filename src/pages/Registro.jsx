@@ -1,36 +1,25 @@
 import { useState } from "react";
-import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
-import Swal from "sweetalert2";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 
-const Login = () => {
-  const { login } = useAuth();
-  const navigate = useNavigate();
+const Register = () => {
+  const { register } = useAuth();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [mensaje, setMensaje] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const exito = login(username, password);
-
+    const exito = register(username, password);
     if (exito) {
-      Swal.fire({
-        icon: "success",
-        title: "¡Bienvenido!",
-        text: `Hola, ${username}!`,
-        confirmButtonColor: "#0d6efd",
-      });
-      navigate(`/perfil/${username}`);
+      setMensaje("Registro exitoso. Ahora podés iniciar sesión.");
+      setUsername("");
+      setPassword("");
     } else {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Usuario o contraseña incorrectos",
-      });
+      setMensaje("El usuario ya existe. Elegí otro nombre.");
     }
-    setUsername("");
-    setPassword("");
   };
 
   return (
@@ -46,7 +35,7 @@ const Login = () => {
         <Col md={6} lg={4}>
           <Card className="shadow-lg p-4 border-0">
             <Card.Body>
-              <h2 className="text-center mb-4">Iniciar Sesión</h2>
+              <h2 className="text-center mb-4">Registrarse</h2>
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formUsername">
                   <Form.Label>Usuario</Form.Label>
@@ -58,7 +47,6 @@ const Login = () => {
                     required
                   />
                 </Form.Group>
-
                 <Form.Group className="mb-3" controlId="formPassword">
                   <Form.Label>Contraseña</Form.Label>
                   <Form.Control
@@ -69,13 +57,15 @@ const Login = () => {
                     required
                   />
                 </Form.Group>
-
-                <Button variant="primary" type="submit" className="w-100">
-                  Ingresar
+                <Button variant="success" type="submit" className="w-100">
+                  Registrarse
                 </Button>
               </Form>
+              {mensaje && (
+                <div className="alert alert-info mt-3">{mensaje}</div>
+              )}
               <p className="mt-3">
-                ¿No tenés cuenta? <Link to="/registro">Registrate acá</Link>
+                ¿Tenés cuenta? <Link to="/login">Inicia Sesión</Link>
               </p>
             </Card.Body>
           </Card>
@@ -85,4 +75,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
