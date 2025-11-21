@@ -15,13 +15,19 @@ const Login = () => {
     const exito = login(username, password);
 
     if (exito) {
+      const rol = localStorage.getItem("authRole");
+
       Swal.fire({
         icon: "success",
         title: "¡Bienvenido!",
         text: `Hola, ${username}!`,
         confirmButtonColor: "#0d6efd",
       });
-      navigate(`/perfil/${username}`);
+      if (rol === "admin") {
+        navigate("/admin");
+      } else {
+        navigate(`/perfil/${username}`);
+      }
     } else {
       Swal.fire({
         icon: "error",

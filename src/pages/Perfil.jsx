@@ -10,7 +10,7 @@ export default function Perfil() {
     <Main />
     <Container className="mt-4 d-flex flex-column align-items-center">
  <Card className="m-4 shadow-lg p-4 w-100" style={{ maxWidth: "500px" }}>
-        <Card.Body className="text-center">
+        <Card.Body className="text-center d-flex flex-column align-items-center gap-3">
           <Card.Title className="mb-3 fs-2">
             Perfil del Usuario
           </Card.Title>
@@ -24,7 +24,10 @@ export default function Perfil() {
           </Card.Text>
 
           <Button variant="primary" className="w-50">
-            Editar perfil
+            Editar mi perfil
+          </Button>
+                    <Button variant="primary" className="w-50 ">
+            Mis compras
           </Button>
         </Card.Body>
       </Card>

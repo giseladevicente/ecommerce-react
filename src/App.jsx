@@ -17,6 +17,7 @@ import Carrito from "./pages/Carrito";
 import Perfil from "./pages/Perfil";
 import Administracion from "./pages/Administracion";
 import Registro from "./pages/Registro";
+import CrudProductos from "./pages/CrudProducts";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -60,18 +61,26 @@ function App() {
               }
             />
             <Route
-              path="/admin"
+              path="/carrito"
               element={
                 <RutaProtegida>
+                  <Carrito />
+                </RutaProtegida>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <RutaProtegida adminOnly={true}>
                   <Administracion />
                 </RutaProtegida>
               }
             />
             <Route
-              path="/carrito"
+              path="/crud"
               element={
-                <RutaProtegida>
-                  <Carrito />
+                <RutaProtegida adminOnly={true}>
+                  <CrudProductos />
                 </RutaProtegida>
               }
             />
