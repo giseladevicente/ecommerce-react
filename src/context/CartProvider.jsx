@@ -4,28 +4,52 @@ import { CartContext } from "./CartContext";
 export const CartProvider = ({ children }) => {
   const [carrito, setCarrito] = useState([]);
 
+  // Agregar producto al carrito
   const agregarAlCarrito = (producto) => {
-    setCarrito((prev) => [...prev, producto]);
+    const prodWithSource = {
+      ...producto,
+      source: producto.source || "unknown",
+    };
+    setCarrito((prevCarrito) => {
+      const existe = prevCarrito.find(
+        (item) =>
+          item.id === prodWithSource.id && item.source === prodWithSource.source
+      );
+      if (existe) {
+        return prevCarrito.map((item) =>
+          item.id === prodWithSource.id && item.source === prodWithSource.source
+            ? { ...item, cantidad: item.cantidad + 1 }
+            : item
+        );
+      }
+      return [...prevCarrito, { ...prodWithSource, cantidad: 1 }];
+    });
   };
 
-  const eliminarDelCarrito = (id) => {
-    setCarrito((prev) => prev.filter((item) => item.id !== id));
+  const eliminarDelCarrito = (id, removeAll = false, source = undefined) => {
+    setCarrito((prevCarrito) =>
+      prevCarrito.reduce((acc, item) => {
+        const matchById = item.id === id;
+        const matchBySource = source ? item.source === source : true;
+        if (!(matchById && matchBySource)) return acc.concat(item);
+        if (removeAll) return acc; 
+        if (item.cantidad > 1)
+          return acc.concat({ ...item, cantidad: item.cantidad - 1 });
+        return acc; 
+      }, [])
+    );
   };
 
   const vaciarCarrito = () => setCarrito([]);
-
-  const total = carrito
-    .reduce((acc, prod) => acc + (prod.discountedPrice || prod.price), 0)
-    .toFixed(2);
 
   return (
     <CartContext.Provider
       value={{
         carrito,
+        setCarrito,
         agregarAlCarrito,
         eliminarDelCarrito,
         vaciarCarrito,
-        total,
       }}
     >
       {children}

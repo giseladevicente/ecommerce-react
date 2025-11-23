@@ -1,20 +1,120 @@
-import { Card, Badge, Button, Container } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
-import { useContext } from "react";
+import { Card, Badge, Button, Container, Spinner } from "react-bootstrap";
+import { useLocation, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import Swal from "sweetalert2";
 
 const ProductoDetalle = () => {
   const location = useLocation();
-  const producto = location.state?.producto;
-  const discount = producto.discount || 0;
-  const precioFinal = producto.discountedPrice || producto.price;
+  const params = useParams();
+  const initialProducto = location.state?.producto;
+
+  const [producto, setProducto] = useState(initialProducto || null);
+  const [loading, setLoading] = useState(!initialProducto);
 
   const { agregarAlCarrito } = useContext(CartContext);
 
-  if (!producto) return <p>Producto no encontrado</p>;
+  useEffect(() => {
+    if (initialProducto) return;
+    const { source, id } = params;
+    if (!id) return;
+
+    const fetchBySource = async () => {
+      setLoading(true);
+      try {
+        if (source === "fakestore") {
+          const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+          const data = await res.json();
+          const mapped = {
+            id: Number(data.id),
+            title: data.title,
+            price: Number(data.price),
+            image: data.image,
+            description: data.description,
+            category: data.category,
+            discount: data.id >= 1 && data.id <= 8 ? 30 : 0,
+            source: "fakestore",
+          };
+          mapped.discountedPrice = mapped.discount
+            ? (mapped.price * (100 - mapped.discount)) / 100
+            : mapped.price;
+          setProducto(mapped);
+        } else if (source === "mockapi" || source === "mock") {
+          const res = await fetch(
+            `https://6910a5907686c0e9c20b3dc3.mockapi.io/products/${id}`
+          );
+          const data = await res.json();
+          const mapped = {
+            id: Number(data.id),
+            title: data.title,
+            price: Number(data.price),
+            image: data.image,
+            description: data.description,
+            category: data.category,
+            discount: Number(data.discount) || 0,
+            stock: Number(data.stock) || 0,
+            source: "mockapi",
+          };
+          mapped.discountedPrice = mapped.discount
+            ? (mapped.price * (100 - mapped.discount)) / 100
+            : mapped.price;
+          setProducto(mapped);
+        } else {
+          const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+          if (res.ok) {
+            const data = await res.json();
+            const mapped = {
+              id: Number(data.id),
+              title: data.title,
+              price: Number(data.price),
+              image: data.image,
+              description: data.description,
+              category: data.category,
+              discount: data.id >= 1 && data.id <= 8 ? 30 : 0,
+              source: "fakestore",
+            };
+            mapped.discountedPrice = mapped.discount
+              ? (mapped.price * (100 - mapped.discount)) / 100
+              : mapped.price;
+            setProducto(mapped);
+          } else {
+            const res2 = await fetch(
+              `https://6910a5907686c0e9c20b3dc3.mockapi.io/products/${id}`
+            );
+            if (res2.ok) {
+              const data = await res2.json();
+              const mapped = {
+                id: Number(data.id),
+                title: data.title,
+                price: Number(data.price),
+                image: data.image,
+                description: data.description,
+                category: data.category,
+                discount: Number(data.discount) || 0,
+                source: "mockapi",
+              };
+              mapped.discountedPrice = mapped.discount
+                ? (mapped.price * (100 - mapped.discount)) / 100
+                : mapped.price;
+              setProducto(mapped);
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBySource();
+  }, [initialProducto, params]);
+
+  const discount = producto?.discount || 0;
+  const precioFinal = producto ? producto.discountedPrice || producto.price : 0;
 
   const handleAgregarAlCarrito = () => {
+    if (!producto) return;
     agregarAlCarrito(producto);
     Swal.fire({
       title: "¡Producto agregado!",
@@ -24,9 +124,20 @@ const ProductoDetalle = () => {
     });
   };
 
+  if (loading)
+    return (
+      <div className="text-center my-5">
+        <Spinner animation="border" />
+      </div>
+    );
+  if (!producto) return <p>Producto no encontrado</p>;
+
   return (
     <Container className="my-5 d-flex justify-content-center">
-      <Card className="shadow p-4 text-center" style={{ maxWidth: "600px", width: "100%" }}>
+      <Card
+        className="shadow p-4 text-center"
+        style={{ maxWidth: "600px", width: "100%" }}
+      >
         <Card.Img
           variant="top"
           src={producto.image}

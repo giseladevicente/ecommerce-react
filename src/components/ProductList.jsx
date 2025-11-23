@@ -125,7 +125,14 @@ const ProductList = ({
           : product.price;
 
         return (
-          <Col key={product.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
+          <Col
+            key={`${product.source}-${product.id}`}
+            xs={12}
+            sm={6}
+            md={4}
+            lg={3}
+            className="mb-4"
+          >
             <ProductCard
               product={{ ...product, discountedPrice }}
               discount={discount}

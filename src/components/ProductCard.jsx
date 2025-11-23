@@ -17,7 +17,7 @@ const ProductCard = ({ product, discount = 0, agregarAlCarrito }) => {
         <Card.Text>{product.description.slice(0, 60)}...</Card.Text>
 
         <Link
-          to={`/producto/${product.id}`}
+          to={`/producto/${product.source || "unknown"}/${product.id}`}
           state={{
             producto: {
               ...product,
