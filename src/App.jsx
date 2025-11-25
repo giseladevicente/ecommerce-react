@@ -64,7 +64,7 @@ function App() {
             <Route
               path="/carrito"
               element={
-                <RutaProtegida>
+                <RutaProtegida allowAdmin={true}>
                   <Carrito />
                 </RutaProtegida>
               }
