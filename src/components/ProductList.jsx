@@ -39,6 +39,7 @@ const ProductList = ({
             category: item.category,
             discount: item.id >= 1 && item.id <= 8 ? 30 : 0,
             source: "fakestore",
+            stock: Math.floor(Math.random() * 100) + 1,
           }))
         );
     };

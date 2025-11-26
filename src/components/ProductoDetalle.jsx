@@ -166,6 +166,10 @@ const ProductoDetalle = () => {
             </Card.Text>
           )}
 
+          <Card.Text className="text-muted mb-3">
+            <small>Stock: {producto.stock}</small>
+          </Card.Text>
+
           <Button
             variant="primary"
             className="mt-2"

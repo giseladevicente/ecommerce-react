@@ -48,6 +48,10 @@ const ProductCard = ({ product, discount = 0, agregarAlCarrito }) => {
           </Card.Text>
         )}
 
+        <Card.Text className="text-muted mb-2">
+          <small>Stock disponible: {product.stock}</small>
+        </Card.Text>
+
         <Button
           variant="primary"
           className="mt-2"
