@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { Row, Col, Spinner } from "react-bootstrap";
+import { Row, Col, Spinner, Form, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 import ProductCard from "./ProductCard";
 import { CartContext } from "../context/CartContext";
@@ -11,10 +11,14 @@ const ProductList = ({
   filterBy = null,
 }) => {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
   const { agregarAlCarrito } = useContext(CartContext);
 
   useEffect(() => {
+    // FAKESTORE
     const fetchFakeStore = () => {
       const url = category
         ? `https://fakestoreapi.com/products/category/${category}`
@@ -39,13 +43,13 @@ const ProductList = ({
         );
     };
 
+    // MOCKAPI
     const fetchMockApi = () => {
-      // const url = "https://6910a5907686c0e9c20b3dc3.mockapi.io/products";
-        const url = category
-    ? `https://6910a5907686c0e9c20b3dc3.mockapi.io/products?category=${encodeURIComponent(
-        category
-      )}`
-    : "https://6910a5907686c0e9c20b3dc3.mockapi.io/products";
+      const url = category
+        ? `https://6910a5907686c0e9c20b3dc3.mockapi.io/products?category=${encodeURIComponent(
+            category
+          )}`
+        : "https://6910a5907686c0e9c20b3dc3.mockapi.io/products";
 
       return fetch(url)
         .then((res) => {
@@ -91,6 +95,7 @@ const ProductList = ({
         }
 
         setProducts(finalData);
+        setFilteredProducts(finalData);
       } catch (error) {
         console.error("Error fetching data:", error);
         Swal.fire({
@@ -108,6 +113,31 @@ const ProductList = ({
     loadProducts();
   }, [category, apiSource]);
 
+  // FILTRO POR PRECIO
+  const handleFilter = () => {
+    let filtered = [...products];
+
+    if (minPrice !== "") {
+      filtered = filtered.filter((p) => p.price >= Number(minPrice));
+    }
+
+    if (maxPrice !== "") {
+      filtered = filtered.filter((p) => p.price <= Number(maxPrice));
+    }
+
+    if (filterBy) {
+      filtered = filtered.filter(filterBy);
+    }
+
+    setFilteredProducts(filtered);
+  };
+
+  const handleClear = () => {
+    setMinPrice("");
+    setMaxPrice("");
+    setFilteredProducts(products);
+  };
+
   if (loading)
     return (
       <div className="text-center my-4">
@@ -115,46 +145,84 @@ const ProductList = ({
       </div>
     );
 
-  const filteredProducts = filterBy ? products.filter(filterBy) : products;
-
   const productsToShow = limit
     ? filteredProducts.slice(0, limit)
     : filteredProducts;
 
   return (
-    <Row>
-      {productsToShow.map((product) => {
-        const discount = product.discount || 0;
-        const discountedPrice = discount
-          ? (product.price * (100 - discount)) / 100
-          : product.price;
-
-        return (
-          <Col
-            key={`${product.source}-${product.id}`}
-            xs={12}
-            sm={6}
-            md={4}
-            lg={3}
-            className="mb-4"
-          >
-            <ProductCard
-              product={{ ...product, discountedPrice }}
-              discount={discount}
-              agregarAlCarrito={() => {
-                agregarAlCarrito({ ...product, discount, discountedPrice });
-                Swal.fire({
-                  title: "¡Producto agregado!",
-                  text: `Producto "${product.title}" agregado al carrito.`,
-                  icon: "success",
-                  confirmButtonColor: "#0d6efd",
-                });
-              }}
+    <>
+      {/* Filtro */}
+      <Form className="mb-4">
+        <Row className="align-items-end justify-content-center">
+          <Col md={3}>
+            <Form.Label>Precio mínimo</Form.Label>
+            <Form.Control
+              type="number"
+              value={minPrice}
+              onChange={(e) => setMinPrice(e.target.value)}
+              placeholder="Ej: 10"
             />
           </Col>
-        );
-      })}
-    </Row>
+
+          <Col md={3}>
+            <Form.Label>Precio máximo</Form.Label>
+            <Form.Control
+              type="number"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
+              placeholder="Ej: 100"
+            />
+          </Col>
+
+          <Col md="auto">
+            <Button variant="primary" onClick={handleFilter}>
+              Filtrar
+            </Button>
+          </Col>
+
+          <Col md="auto">
+            <Button variant="secondary" onClick={handleClear}>
+              Limpiar
+            </Button>
+          </Col>
+        </Row>
+      </Form>
+
+      {/* Productos */}
+      <Row>
+        {productsToShow.map((product) => {
+          const discount = product.discount || 0;
+          const discountedPrice = discount
+            ? (product.price * (100 - discount)) / 100
+            : product.price;
+
+          return (
+            <Col
+              key={`${product.source}-${product.id}`}
+              xs={12}
+              sm={6}
+              md={4}
+              lg={3}
+              className="mb-4"
+            >
+              <ProductCard
+                product={{ ...product, discountedPrice }}
+                discount={discount}
+                agregarAlCarrito={() => {
+                  agregarAlCarrito({ ...product, discount, discountedPrice });
+                  Swal.fire({
+                    title: "¡Producto agregado!",
+                    text: `Producto "${product.title}" agregado al carrito.`,
+                    icon: "success",
+                    confirmButtonColor: "#0d6efd",
+                  });
+                }}
+              />
+            </Col>
+          );
+        })}
+      </Row>
+    </>
   );
 };
 
