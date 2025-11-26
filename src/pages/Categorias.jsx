@@ -18,7 +18,7 @@ function Categorias() {
         <h2>Categoría: {categoriasTraducidas[categoria] || categoria}</h2>
       </div>
 
-      <ProductList category={categoria} />
+      <ProductList category={categoria} apiSource="both" />
     </Container>
   );
 }

@@ -40,7 +40,12 @@ const ProductList = ({
     };
 
     const fetchMockApi = () => {
-      const url = "https://6910a5907686c0e9c20b3dc3.mockapi.io/products";
+      // const url = "https://6910a5907686c0e9c20b3dc3.mockapi.io/products";
+        const url = category
+    ? `https://6910a5907686c0e9c20b3dc3.mockapi.io/products?category=${encodeURIComponent(
+        category
+      )}`
+    : "https://6910a5907686c0e9c20b3dc3.mockapi.io/products";
 
       return fetch(url)
         .then((res) => {
