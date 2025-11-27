@@ -1,8 +1,18 @@
 import { useEffect, useState, useContext } from "react";
-import { Row, Col, Spinner, Form, Button } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Spinner,
+  Form,
+  Button,
+  Card,
+  InputGroup,
+} from "react-bootstrap";
 import Swal from "sweetalert2";
 import ProductCard from "./ProductCard";
 import { CartContext } from "../context/CartContext";
+import { Search } from "react-bootstrap-icons";
+import "../styles/ProductList.css";
 
 const ProductList = ({
   category = null,
@@ -16,6 +26,7 @@ const ProductList = ({
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const { agregarAlCarrito } = useContext(CartContext);
+  const [busquedaLocal, setBusquedaLocal] = useState("");
 
   useEffect(() => {
     // FAKESTORE
@@ -95,6 +106,12 @@ const ProductList = ({
           finalData = await fetchMockApi();
         }
 
+        if (category) {
+          finalData = finalData.filter(
+            (item) => item.category.toLowerCase() === category.toLowerCase()
+          );
+        }
+
         setProducts(finalData);
         setFilteredProducts(finalData);
       } catch (error) {
@@ -114,29 +131,44 @@ const ProductList = ({
     loadProducts();
   }, [category, apiSource]);
 
-  // FILTRO POR PRECIO
-  const handleFilter = () => {
-    let filtered = [...products];
+  // Filtro por búsqueda
+  useEffect(() => {
+    let result = [...products];
 
+    if (busquedaLocal.trim() !== "") {
+      result = result.filter(
+        (p) =>
+          p.title.toLowerCase().includes(busquedaLocal.toLowerCase()) ||
+          p.description.toLowerCase().includes(busquedaLocal.toLowerCase())
+      );
+    }
+
+    // Filtro por precio
     if (minPrice !== "") {
-      filtered = filtered.filter((p) => p.price >= Number(minPrice));
+      result = result.filter((p) => p.price >= Number(minPrice));
     }
 
     if (maxPrice !== "") {
-      filtered = filtered.filter((p) => p.price <= Number(maxPrice));
+      result = result.filter((p) => p.price <= Number(maxPrice));
     }
 
     if (filterBy) {
-      filtered = filtered.filter(filterBy);
+      result = result.filter(filterBy);
     }
 
-    setFilteredProducts(filtered);
+    setFilteredProducts(result);
+  }, [products, busquedaLocal, minPrice, maxPrice, filterBy]);
+
+  const handleFilter = () => {
+    setMinPrice((prev) => prev);
+    setMaxPrice((prev) => prev);
   };
 
   const handleClear = () => {
     setMinPrice("");
     setMaxPrice("");
     setFilteredProducts(products);
+    setBusquedaLocal("");
   };
 
   if (loading)
@@ -152,42 +184,87 @@ const ProductList = ({
 
   return (
     <>
-      {/* Filtro */}
-      <Form className="mb-4">
-        <Row className="align-items-end justify-content-center">
-          <Col md={3}>
-            <Form.Label>Precio mínimo</Form.Label>
+      {/* Buscador */}
+      <div className="mx-auto mb-4" style={{ maxWidth: "500px" }}>
+        <Form className="mb-4" onSubmit={(e) => e.preventDefault()}>
+          <InputGroup>
+            <InputGroup.Text>
+              <Search />
+            </InputGroup.Text>
+
             <Form.Control
-              type="number"
-              value={minPrice}
-              onChange={(e) => setMinPrice(e.target.value)}
-              placeholder="Ej: 10"
+              type="search"
+              placeholder="Buscar productos..."
+              value={busquedaLocal}
+              onChange={(e) => setBusquedaLocal(e.target.value)}
             />
-          </Col>
 
-          <Col md={3}>
-            <Form.Label>Precio máximo</Form.Label>
-            <Form.Control
-              type="number"
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(e.target.value)}
-              placeholder="Ej: 100"
-            />
-          </Col>
+            {busquedaLocal !== "" && (
+              <Button
+                variant="outline-secondary"
+                onClick={() => setBusquedaLocal("")}
+              >
+                Limpiar
+              </Button>
+            )}
+          </InputGroup>
+        </Form>
+      </div>
 
-          <Col md="auto">
-            <Button variant="primary" onClick={handleFilter}>
-              Filtrar
-            </Button>
-          </Col>
+      {/* Filtro por precio */}
+      <div className="mx-auto mb-4">
+        <Card className="filter-card mb-4 shadow-sm border-1">
+          <Card.Body>
+            <h5 className="mb-3 fw-semibold text-primary">
+              Filtrar por precio
+            </h5>
 
-          <Col md="auto">
-            <Button variant="secondary" onClick={handleClear}>
-              Limpiar
-            </Button>
-          </Col>
-        </Row>
-      </Form>
+            <Row className="gy-3">
+              <Col xs={12} md={4}>
+                <Form.Group>
+                  <Form.Label className="fw-medium">Precio mínimo</Form.Label>
+                  <Form.Control
+                    type="number"
+                    value={minPrice}
+                    onChange={(e) => setMinPrice(e.target.value)}
+                    placeholder="Ej: 10"
+                  />
+                </Form.Group>
+              </Col>
+
+              <Col xs={12} md={4}>
+                <Form.Group>
+                  <Form.Label className="fw-medium">Precio máximo</Form.Label>
+                  <Form.Control
+                    type="number"
+                    value={maxPrice}
+                    onChange={(e) => setMaxPrice(e.target.value)}
+                    placeholder="Ej: 100"
+                  />
+                </Form.Group>
+              </Col>
+
+              <Col xs={12} md={4} className="d-flex gap-2 align-items-end">
+                <Button
+                  variant="primary"
+                  className="w-50"
+                  onClick={handleFilter}
+                >
+                  Filtrar
+                </Button>
+
+                <Button
+                  variant="outline-secondary"
+                  className="w-50"
+                  onClick={handleClear}
+                >
+                  Limpiar
+                </Button>
+              </Col>
+            </Row>
+          </Card.Body>
+        </Card>
+      </div>
 
       {/* Productos */}
       <Row>

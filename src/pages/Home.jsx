@@ -13,7 +13,10 @@ function Home() {
             ¡Aprovechá un 30% OFF en productos seleccionados!
           </p>
         </div>
-        < ProductList apiSource="both" filterBy={(prod) => Number(prod.discount) > 0} />
+        <ProductList
+          apiSource="both"
+          filterBy={(prod) => Number(prod.discount) > 0}
+        />
       </Container>
     </>
   );
