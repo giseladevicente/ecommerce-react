@@ -4,7 +4,7 @@
 
 E-commerce desarrollado con React + Vite, utilizando React-Bootstrap para el diseño y SweetAlert2 para las alertas, incorporando sistema de autenticación, roles, carrito funcional, rutas protegidas, filtrado por categorías, CRUD de productos, consumo e integración de FakeStore API, MockAPI en la app y consumo de RandomUser API para la sección Nosotros.
 
-## 📑 Índice
+## Índice
 
 - [Tecnologías utilizadas](#tecnologías-utilizadas)
 - [Ejecución del proyecto](#ejecución-del-proyecto)
@@ -35,7 +35,7 @@ E-commerce desarrollado con React + Vite, utilizando React-Bootstrap para el dis
 - 🛍️ **MockAPI** (productos y CRUD de gestión)
 - 👥 **RandomUser API** (sección "Nosotros")
 
-🔝 [Volver al índice](#📑-índice)
+🔝 [Volver al índice](#índice)
 
 ## Ejecución del proyecto
 
@@ -63,13 +63,13 @@ npm install
 npm run dev
 ```
 
-🔝 [Volver al índice](#📑-índice)
+🔝 [Volver al índice](#índice)
 
 ## Rama de entrega
 
 El proyecto se encuentra en la rama **final**.
 
-🔝 [Volver al índice](#📑-índice)
+🔝 [Volver al índice](#índice)
 
 ## Estructura del proyecto
 
@@ -116,7 +116,7 @@ src/
 └── main.jsx
 ```
 
-🔝 [Volver al índice](#📑-índice)
+🔝 [Volver al índice](#índice)
 
 ## Funcionalidades
 
@@ -136,7 +136,7 @@ src/
   - Usuario: admin
   - Contraseña: 123
 
-🔝 [Volver al índice](#📑-índice)
+🔝 [Volver al índice](#índice)
 
 ### Rutas protegidas
 
@@ -144,7 +144,7 @@ src/
 **Usuarios registrados:** Home, Nosotros, Categorías, Perfil y Carrito.
 **Administrador:** Home, Nosotros, Categorías, Carrito y Admin (CRUD de productos).
 
-🔝 [Volver al índice](#📑-índice)
+🔝 [Volver al índice](#índice)
 
 ### Navbar
 
@@ -154,7 +154,7 @@ src/
 - Botón dinámico Login/Cerrar Sesión.
 - Botón Carrito con alerta si el usuario no autenticado intenta acceder.
 
-🔝 [Volver al índice](#📑-índice)
+🔝 [Volver al índice](#índice)
 
 ### Home
 
@@ -162,14 +162,14 @@ src/
 - Botón con redirección a _Todos los productos_.
 - Sección de productos destacados con descuentos.
 
-🔝 [Volver al índice](#📑-índice)
+🔝 [Volver al índice](#índice)
 
 ### Nosotros
 
 - Consumo de **API RandomUser** para mostrar información de integrantes ficticios del equipo.
 - Formulario de contacto.
 
-🔝 [Volver al índice](#📑-índice)
+🔝 [Volver al índice](#índice)
 
 ### Productos
 
@@ -177,7 +177,7 @@ src/
 - Cards con imagen, precio y botón de "Agregar al carrito".
 - Link al detalle del producto.
 
-🔝 [Volver al índice](#📑-índice)
+🔝 [Volver al índice](#índice)
 
 ### Detalle de Producto
 
@@ -186,7 +186,7 @@ src/
 - Manejo de productos según origen: MockAPI o FakeStore
 - Botón "Volver" que regresa a la página anterior.
 
-🔝 [Volver al índice](#📑-índice)
+🔝 [Volver al índice](#índice)
 
 ### Categorías
 
@@ -202,7 +202,7 @@ src/
 - Descuentos visibles respetados en todas las categorías.
 - Botón "Agregar al carrito".
 
-🔝 [Volver al índice](#📑-índice)
+🔝 [Volver al índice](#índice)
 
 ### Carrito
 
@@ -214,7 +214,7 @@ src/
 
 **Solo accesible si estás autenticado.**
 
-🔝 [Volver al índice](#📑-índice)
+🔝 [Volver al índice](#índice)
 
 ### Administración y CRUD MockAPI
 
@@ -226,7 +226,7 @@ src/
     - Eliminar producto.
 - Botón "Configuración" sin funcionalidad.
 
-🔝[Volver al índice](#📑-índice)
+🔝[Volver al índice](#índice)
 
 ### Perfil
 
@@ -235,7 +235,7 @@ src/
   - Botón "Editar mi perfil" (sin funcionalidad).
   - Botón "Mis compras" (sin funcionalidad).
 
-🔝 [Volver al índice](#📑-índice)
+🔝 [Volver al índice](#índice)
 
 ### Autor
 
@@ -243,4 +243,4 @@ Gisela De Vicente
 Proyecto final – Talento Tech React.js
 GitHub: https://github.com/giseladevicente
 
-🔝 [Volver al índice](#📑-índice)
+🔝 [Volver al índice](#índice)
