@@ -65,12 +65,18 @@ const Navigation = () => {
           </Navbar.Collapse>
         </div>
 
-        {/* Login/Cerrar sesión y Carrito */}
         <div className="d-flex align-items-center gap-2">
+          {/* Login/Cerrar sesión y Carrito */}
           {!isAuth ? (
-            <Button as={Link} to="/login" variant="outline-light">
-              <FontAwesomeIcon icon={faUser} />
-            </Button>
+            <>
+              <Button as={Link} to="/registro" variant="light">
+                Registrate
+              </Button>
+
+              <Button as={Link} to="/login" variant="outline-light">
+                <FontAwesomeIcon icon={faUser} />
+              </Button>
+            </>
           ) : (
             <Button variant="outline-light" onClick={cerrarSesion}>
               Cerrar sesión
