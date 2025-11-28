@@ -1,8 +1,8 @@
-# Pre-Entrega Talento Tech - React.js
+# E-commerce React.js - Proyecto Final (Curso Talento Tech)
 
-## E-commerce React.js
+## Descripción
 
-Proyecto de un E-commerce desarrollado con React + Vite, utilizando React-Bootstrap para el diseño, FakeStore API como fuente de productos y SweetAlert2 para las alertas.
+E-commerce desarrollado con React + Vite, utilizando React-Bootstrap para el diseño y SweetAlert2 para las alertas, incorporando sistema de autenticación, roles, carrito funcional, rutas protegidas, filtrado por categorías, CRUD de productos, consumo e integración de FakeStore API, MockAPI en la app y consumo de RandomUser API para la sección Nosotros.
 
 ## 📑 Índice
 
@@ -11,22 +11,29 @@ Proyecto de un E-commerce desarrollado con React + Vite, utilizando React-Bootst
 - [Rama de entrega](#rama-de-entrega)
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Funcionalidades](#funcionalidades)
+  - [Autenticación y roles](#autenticación-y-roles)
+  - [Rutas protegidas](#rutas-protegidas)
   - [Navbar](#navbar)
   - [Home](#home)
   - [Nosotros](#nosotros)
+  - [Productos](#productos)
+  - [Detalle de Producto](#detalle-de-producto)
   - [Categorías](#categorías)
-  - [Perfil y Administración](#perfil-y-administración)
   - [Carrito](#carrito)
+  - [Administración y CRUD MockAPI](#administración-y-crud-mockapi)
+  - [Perfil](#perfil)
+  - [Autor](#autor)
 
 ## Tecnologías utilizadas
 
-- ⚛️ **React** (con Vite)
+- ⚛️ **React + Vite**
 - 🎨 **React-Bootstrap**
 - 🧭 **React Router DOM**
 - 💬 **SweetAlert2**
 - 🌟 **Font Awesome Icons**
-- 🛍️ **FakeStore API**
-- 👥 **RandomUser API**
+- 🛍️ **FakeStore API** (productos)
+- 🛍️ **MockAPI** (productos y CRUD de gestión)
+- 👥 **RandomUser API** (sección "Nosotros")
 
 🔝 [Volver al índice](#📑-índice)
 
@@ -41,7 +48,7 @@ Proyecto de un E-commerce desarrollado con React + Vite, utilizando React-Bootst
 2. Acceder al directorio del proyecto
 
 ```bash
-cd nombre-del-proyecto
+cd proyectofinal-25235-gdv
 ```
 
 3. Instalar dependencias
@@ -60,7 +67,7 @@ npm run dev
 
 ## Rama de entrega
 
-El proyecto se encuentra en la rama **pre-entrega**.
+El proyecto se encuentra en la rama **final**.
 
 🔝 [Volver al índice](#📑-índice)
 
@@ -75,19 +82,36 @@ src/
 │ ├── Nav.jsx
 │ ├── ProductCard.jsx
 │ ├── ProductList.jsx
+│ ├── ProductoDetalle.jsx
 │ └── RutaProtegida.jsx
+│
+├── context/
+│ ├── AuthContext.jsx
+│ ├── AuthProvider.jsx
+│ ├── CartContext.jsx
+│ └── CartProvider.jsx
+│
+├── hooks/
+│ ├── useAuth.jsx
+│ └── useLogout.jsx
+│
 ├── pages/
 │ ├── Administracion.jsx
 │ ├── Carrito.jsx
 │ ├── Categorias.jsx
+│ ├── CrudProducts.jsx
 │ ├── Home.jsx
 │ ├── Login.jsx
 │ ├── Nosotros.jsx
 │ ├── Perfil.jsx
+│ ├── Registro.jsx
 │ └── Productos.jsx
+│
 ├── styles/
-  ├── Footer.css
+│ ├── Footer.css
+│ ├── Main.css
 │ └── Nav.css
+│
 ├── App.jsx
 └── main.jsx
 ```
@@ -96,54 +120,127 @@ src/
 
 ## Funcionalidades
 
+### Autenticación y roles
+
+- Implementada con Context API + localStorage.
+- Registro de usuarios (guardados en localStorage).
+- Generación de token falso.
+- Estado persistente al recargar la página.
+
+- **Roles disponibles:**
+
+  - user
+  - admin
+
+- **Credenciales del administrador:**
+  - Usuario: admin
+  - Contraseña: 123
+
+🔝 [Volver al índice](#📑-índice)
+
+### Rutas protegidas
+
+**Visitantes no autenticados:** Home, Nosotros, Categorías, Login.
+**Usuarios registrados:** Home, Nosotros, Categorías, Perfil y Carrito.
+**Administrador:** Home, Nosotros, Categorías, Carrito y Admin (CRUD de productos).
+
+🔝 [Volver al índice](#📑-índice)
+
 ### Navbar
 
-- Navegación entre todas las secciones del sitio: **Home**, **Nosotros**, **Categorías**, **Perfil**, **Admin**, **Carrito** y **Login**.
-- Incluye un **buscador** (sin funcionalidad activa por el momento).
-- El botón de **inicio de sesión** cambia dinámicamente a “Cerrar sesión” al autenticarse.
-- El botón de **carrito** muestra una alerta si el usuario intenta acceder sin iniciar sesión.
+- Navegación entre todas las secciones del sitio.
+- Buscador en tiempo real.
+- Botón dinámico "Registrate" visible solo si el usuario no está autenticado.
+- Botón dinámico Login/Cerrar Sesión.
+- Botón Carrito con alerta si el usuario no autenticado intenta acceder.
 
 🔝 [Volver al índice](#📑-índice)
 
 ### Home
 
-- Contiene un **banner principal** con un botón que redirige a la página de _Todos los productos_.
-- Presenta una **sección de productos destacados** con descuentos aplicados.
+- Banner principal.
+- Botón con redirección a _Todos los productos_.
+- Sección de productos destacados con descuentos.
 
 🔝 [Volver al índice](#📑-índice)
 
 ### Nosotros
 
-- Utiliza la **API RandomUser** para mostrar información de integrantes ficticios del equipo.
-- Incluye un **formulario de contacto**.
+- Consumo de **API RandomUser** para mostrar información de integrantes ficticios del equipo.
+- Formulario de contacto.
+
+🔝 [Volver al índice](#📑-índice)
+
+### Productos
+
+- Listado desde MockAPI y FakeStore API.
+- Cards con imagen, precio y botón de "Agregar al carrito".
+- Link al detalle del producto.
+
+🔝 [Volver al índice](#📑-índice)
+
+### Detalle de Producto
+
+- Información completa del producto.
+- Botón "Agregar al carrito".
+- Manejo de productos según origen: MockAPI o FakeStore
+- Botón "Volver" que regresa a la página anterior.
 
 🔝 [Volver al índice](#📑-índice)
 
 ### Categorías
 
-- Permite filtrar productos por categoría:
+- Filtrado por:
+
+  - 🛒 Todos los productos
   - 👩 Mujer
   - 👨 Hombre
   - 💻 Electrónica
   - 💍 Joyería
-  - 🛒 Todos los productos
-- Cada producto se muestra en una **card** con imagen, descripción y precio.
-- Los productos destacados incluyen **descuento visible** que son respetados en todas las categorias.
-- Cada card tiene un botón **“Agregar al carrito”**, que muestra un **SweetAlert2** confirmando la acción (sin funcionalidad real aún).
 
-🔝 [Volver al índice](#📑-índice)
-
-### Perfil y Administración
-
-- Secciones visibles **solo al iniciar sesión**.
-- El sistema de autenticación utiliza `localStorage` para controlar el estado del usuario y sus rutas están **protegidas**, siendo solo accesibles si el usuario está logueado.
-- Incluyen una estructura básica pensada para futuras funcionalidades.
+- Card con imagen, descripción y precio.
+- Descuentos visibles respetados en todas las categorías.
+- Botón "Agregar al carrito".
 
 🔝 [Volver al índice](#📑-índice)
 
 ### Carrito
 
-- Página estructurada pero **sin funcionalidad completa**.
-- Muestra un esquema estático como base para su desarrollo posterior.
+- Agregar productos.
+- Aumentar cantidades.
+- Eliminar uno o todos.
+- Vaciar carrito.
+- Cálculo dinámico del total.
+
+**Solo accesible si estás autenticado.**
+
+🔝 [Volver al índice](#📑-índice)
+
+### Administración y CRUD MockAPI
+
+- Botón "Gestionar Productos" (solo administrador).
+  - CRUD completo:
+    - Listado de productos.
+    - Crear nuevo producto.
+    - Editar producto existente.
+    - Eliminar producto.
+- Botón "Configuración" sin funcionalidad.
+
+🔝[Volver al índice](#📑-índice)
+
+### Perfil
+
+- Ruta protegida que muestra:
+  - Nombre del usuario.
+  - Botón "Editar mi perfil" (sin funcionalidad).
+  - Botón "Mis compras" (sin funcionalidad).
+
+🔝 [Volver al índice](#📑-índice)
+
+### Autor
+
+Gisela De Vicente
+Proyecto final – Talento Tech React.js
+GitHub: https://github.com/giseladevicente
 
 🔝 [Volver al índice](#📑-índice)
