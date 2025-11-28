@@ -32,14 +32,13 @@ const Footer = () => {
           </Col>
 
           {/* Columna 2: Redes Sociales */}
-          <Col xs={4} lg={4} className="mb-3 text-center redes">
+          <Col xs={4} lg={4} className="mb-3 text-center">
             <h5>Síguenos</h5>
-            <div className="d-flex justify-content-center gap-3 mt-2">
+            <div className="d-flex justify-content-center gap-3 mt-2 redes">
               <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white"
                 aria-label="Facebook"
               >
                 <FontAwesomeIcon icon={faFacebookF} />
@@ -48,7 +47,6 @@ const Footer = () => {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white"
                 aria-label="Instagram"
               >
                 <FontAwesomeIcon icon={faInstagram} />
@@ -57,7 +55,6 @@ const Footer = () => {
                 href="https://x.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white"
                 aria-label="X"
               >
                 <FontAwesomeIcon icon={faXTwitter} />

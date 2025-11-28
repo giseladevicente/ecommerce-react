@@ -44,6 +44,7 @@ function App() {
         <CartProvider>
           <Navigation />
           <Header />
+          <div className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/productos" element={<Productos />} />
@@ -86,6 +87,7 @@ function App() {
               }
             />
           </Routes>
+          </div>
           <Footer />
         </CartProvider>
       </AuthProvider>
