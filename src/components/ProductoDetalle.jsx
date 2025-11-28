@@ -3,8 +3,14 @@ import { useLocation, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import "../styles/ProductoDetalle.css";
+import { ArrowLeft } from "react-bootstrap-icons";
+
 
 const ProductoDetalle = () => {
+  const navigate = useNavigate();
+
   const location = useLocation();
   const params = useParams();
   const initialProducto = location.state?.producto;
@@ -133,7 +139,11 @@ const ProductoDetalle = () => {
   if (!producto) return <p>Producto no encontrado</p>;
 
   return (
-    <Container className="my-5 d-flex justify-content-center">
+    <Container className="my-5 d-flex flex-column align-items-center">
+      <Button variant="secondary" className="m-3 btn-volver" onClick={() => navigate(-1)}>
+         <ArrowLeft className="me-2"/>Volver
+      </Button>
+
       <Card
         className="shadow p-4 text-center"
         style={{ maxWidth: "600px", width: "100%" }}
