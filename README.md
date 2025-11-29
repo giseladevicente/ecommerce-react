@@ -23,6 +23,8 @@ E-commerce desarrollado con React + Vite, utilizando React-Bootstrap para el dis
   - [Administración y CRUD MockAPI](#administración-y-crud-mockapi)
   - [Perfil](#perfil)
   - [Autor](#autor)
+  - [Demo del proyecto](#demo-del-proyecto)
+  
 
 ## Tecnologías utilizadas
 
@@ -67,7 +69,10 @@ npm run dev
 
 ## Rama de entrega
 
-El proyecto se encuentra en la rama **final**.
+El proyecto final se encuentra en la rama `main`, donde se integró el contenido de la rama **final**. 
+
+Durante el desarrollo se utilizaron las ramas **pre-entrega**, **etapa-intermedia** y **final** como parte del proceso de construcción del proyecto.
+
 
 🔝 [Volver al índice](#índice)
 
@@ -211,6 +216,7 @@ src/
 - Eliminar uno o todos.
 - Vaciar carrito.
 - Cálculo dinámico del total.
+- Botón "Pagar" (pendiente de implementación).
 
 **Solo accesible si estás autenticado.**
 
@@ -226,21 +232,30 @@ src/
     - Eliminar producto.
 - Botón "Configuración" sin funcionalidad.
 
-🔝[Volver al índice](#índice)
+🔝 [Volver al índice](#índice)
 
 ### Perfil
 
 - Ruta protegida que muestra:
   - Nombre del usuario.
-  - Botón "Editar mi perfil" (sin funcionalidad).
-  - Botón "Mis compras" (sin funcionalidad).
+  - Botón "Editar mi perfil" (pendiente de implementación).
+  - Botón "Mis compras" (pendiente de implementación).
 
 🔝 [Volver al índice](#índice)
 
-### Autor
+## Autor
 
-Gisela De Vicente
-Proyecto final – Talento Tech React.js
-GitHub: https://github.com/giseladevicente
+- **Gisela De Vicente**
+- Proyecto final – Talento Tech React.js
+- GitHub: https://github.com/giseladevicente
+
+🔝 [Volver al índice](#índice)
+
+## Demo del proyecto
+
+Proyecto desplegado en Vercel: 
+
+👉 https://ecommerce-gdv.vercel.app
+
 
 🔝 [Volver al índice](#índice)
