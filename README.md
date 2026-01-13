@@ -1,14 +1,14 @@
-# E-commerce React.js - Proyecto Final (Curso Talento Tech)
+# E-commerce React.js
 
 ## Descripción
 
-E-commerce desarrollado con React + Vite, utilizando React-Bootstrap para el diseño y SweetAlert2 para las alertas, incorporando sistema de autenticación, roles, carrito funcional, rutas protegidas, filtrado por categorías, CRUD de productos, consumo e integración de FakeStore API, MockAPI en la app y consumo de RandomUser API para la sección Nosotros.
+E-commerce desarrollado con React + Vite, utilizando React-Bootstrap para el diseño y SweetAlert2 para las alertas.
+Incluye autenticación con roles, carrito funcional, rutas protegidas, filtrado por categorías, CRUD de productos y consumo de múltiples APIs externas (FakeStore, MockAPI y RandomUser).
 
 ## Índice
 
 - [Tecnologías utilizadas](#tecnologías-utilizadas)
 - [Ejecución del proyecto](#ejecución-del-proyecto)
-- [Rama de entrega](#rama-de-entrega)
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Funcionalidades](#funcionalidades)
   - [Autenticación y roles](#autenticación-y-roles)
@@ -44,13 +44,13 @@ E-commerce desarrollado con React + Vite, utilizando React-Bootstrap para el dis
 1. Clonar el repositorio
 
 ```bash
-   git clone https://github.com/giseladevicente/proyectofinal-25235-gdv.git
+   git clone https://github.com/giseladevicente/ecommerce-react.git
 ```
 
 2. Acceder al directorio del proyecto
 
 ```bash
-cd proyectofinal-25235-gdv
+cd ecommerce-react
 ```
 
 3. Instalar dependencias
@@ -67,14 +67,6 @@ npm run dev
 
 🔝 [Volver al índice](#índice)
 
-## Rama de entrega
-
-El proyecto final se encuentra en la rama `main`, donde se integró el contenido de la rama **final**. 
-
-Durante el desarrollo se utilizaron las ramas **pre-entrega**, **etapa-intermedia** y **final** como parte del proceso de construcción del proyecto.
-
-
-🔝 [Volver al índice](#índice)
 
 ## Estructura del proyecto
 
@@ -246,7 +238,6 @@ src/
 ## Autor
 
 - **Gisela De Vicente**
-- Proyecto final – Talento Tech React.js
 - GitHub: https://github.com/giseladevicente
 
 🔝 [Volver al índice](#índice)
